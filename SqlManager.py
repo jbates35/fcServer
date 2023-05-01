@@ -55,7 +55,7 @@ class SqlManager:
         
         #SQL query part
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM fish_counter WHERE (reading_date || ' ' || reading_time) BETWEEN %s AND %s AND id BETWEEN %s AND %s", (start_timestamp, end_timestamp, id_start, id_end))
+        cur.execute("SELECT * FROM fish_counter WHERE (fish_date || ' ' || fish_time) BETWEEN %s AND %s AND id BETWEEN %s AND %s", (start_timestamp, end_timestamp, id_start, id_end))
         rows = cur.fetchall()
         
         if not wasConnected:
