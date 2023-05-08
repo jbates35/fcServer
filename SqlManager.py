@@ -94,9 +94,25 @@ class SqlManager:
         start_timestamp = date_start + " " + time_start
         end_timestamp = date_end + " " + time_end
         
-        #SQL query part
+        # SQL query part
         curr = self.conn.cursor()
-        curr.execute("SELECT direction, COUNT(*) AS count FROM fish_counter WHERE direction IN ('R', 'L') AND (fish_date || ' ' || fish_time) BETWEEN %s AND %s AND id BETWEEN %s AND %s GROUP BY direction ORDER BY direction, count DESC", (start_timestamp, end_timestamp, id_start, id_end))
+        curr.execute("""
+            SELECT directions.direction, COALESCE(counts.count, 0) AS count
+            FROM (
+                SELECT 'R' AS direction
+                UNION
+                SELECT 'L' AS direction
+            ) AS directions
+            LEFT JOIN (
+                SELECT direction, COUNT(*) AS count
+                FROM fish_counter
+                WHERE (fish_date || ' ' || fish_time) BETWEEN %s AND %s
+                AND id BETWEEN %s AND %s
+                GROUP BY direction
+            ) AS counts ON directions.direction = counts.direction
+            ORDER BY directions.direction
+        """, (start_timestamp, end_timestamp, id_start, id_end))
+        
         rows = curr.fetchall()
         
         if not wasConnected:

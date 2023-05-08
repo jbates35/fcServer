@@ -67,6 +67,12 @@ div#innerContentBox {
 }
 #box2 {
     order: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 #box3 {
     order: 3;
@@ -80,3 +86,24 @@ div#innerContentBox {
     height: 100%;
     object-fit: contain;
 }
+
+.reading {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    font-size: 1.2em;
+    font-family: 'Ubuntu-Regular', sans-serif;
+  }
+  
+  .param {
+    text-align: right;
+    width:50%;
+    padding:3px;
+    font-weight: bold;
+  }
+  
+  .arg {
+    text-align: left;
+    width:50%;
+    padding:3px;
+  }
