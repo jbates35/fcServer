@@ -11,6 +11,9 @@ scheduler = BackgroundScheduler()
 sql_manager_obj = SqlManager.SqlManager("localhost", "5432", "fcdb", "fishcens", "fishcens")
 sql_manager_obj.connect()
 
+depth_graph_link = "static/img/depth.png"
+temp_graph_link = "static/img/temperature.png"
+
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 @app.route('/index.html', methods=['GET'])
@@ -98,10 +101,7 @@ def settings():
 
 def perform_background_task():
     # Import sensor data from database and plot them
-    # First need filenames
-    depth_graph_link = "static/img/depth.png"
-    temp_graph_link = "static/img/temperature.png"
-
+    # First need filename
     sensor_data = sql_manager_obj.get_sensor_data()
 
     temperature_plot = sensorGrapher.plot_water_temperature(sensor_data)
@@ -118,4 +118,5 @@ def serve_static(filename):
 scheduler.add_job(perform_background_task, 'interval', minutes=5)
 
 if __name__ == "__main__":
+    perform_background_task()
     app.run()
