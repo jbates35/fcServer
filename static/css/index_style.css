@@ -1,0 +1,82 @@
+body {
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu-Regular', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--darkgrey1);
+}
+
+div#innerContentBox {
+    background-color: white;
+    width: 1152px;
+    height: 90%;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+@media (max-width: 1280px) {
+    div#innerContentBox {
+        width: 90%;
+    }
+}
+
+@media (max-width: 700px) {
+    div#innerContentBox {
+        flex-direction: column;
+    }
+}
+
+.box {
+    /* border-top-left-radius: 5%; */
+    /* border-bottom-right-radius: 5%; */
+    border: #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    padding:15px;
+    width: 45%;
+    height: 45%;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+/* @media (max-width: 1280px) {
+    .box {
+        height: calc()
+    }
+} */
+
+@media (max-width: 700px) { 
+    .box {
+        width: 90%;
+    }
+}
+
+#box1 {
+    order: 1;
+}
+#box2 {
+    order: 2;
+}
+#box3 {
+    order: 3;
+}
+#box4 {
+    order: 4;
+}
+
+.sensorgraph {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

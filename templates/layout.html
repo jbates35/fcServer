@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    {% block head %}
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>FishCenS</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Banner that will be on every page -->
+    <div id="banner">
+        <h1 class="noSelect" id="titleH1">Fish-CenS</h1>
+    </div>
+
+    <div class="bottomBorder" id="bannerBottomBorder"></div>
+
+    <!-- Toolbar that will be on every page -->
+
+    <div id="navbar"> 
+        <div class="linkContainer"><a id="ctrlCenterId" href="index">Control Center</a></div> |  
+        <div class="linkContainer"><a id="fishDataId" href="fishdata">Fish Data</a></div> |
+        <div class="linkContainer"><a id="sensorDataId" href="sensors">Sensor Data</a></div> |
+        <div class="linkContainer"><a id="settingsId" href="settings">Settings</a></div>
+    </div>
+    <div class="bottomBorder" id="navbarBottomBorder"> </div>
+
+    <!-- Content template -->
+    <div id="outerContentBox">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>
