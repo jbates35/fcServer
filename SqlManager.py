@@ -45,7 +45,7 @@ class SqlManager:
         
         return rows
     
-    def get_fish_data(self, id_start=0, id_end=2147483647, date_start="1970-01-01", time_start="00:00:00", date_end="2040-01-01", time_end="00:00:00"):
+    def get_fish_data(self, limit=-1, id_start=0, id_end=2147483647, date_start="1970-01-01", time_start="00:00:00", date_end="2040-01-01", time_end="00:00:00"):
         wasConnected = True
         
         if self.conn is None:
@@ -58,7 +58,10 @@ class SqlManager:
         
         #SQL query part
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM fish_counter WHERE (fish_date || ' ' || fish_time) BETWEEN %s AND %s AND id BETWEEN %s AND %s", (start_timestamp, end_timestamp, id_start, id_end))
+        if limit > 0:
+            cur.execute("SELECT * FROM fish_counter WHERE (fish_date || ' ' || fish_time) BETWEEN %s AND %s AND id BETWEEN %s AND %s ORDER BY id DESC LIMIT %s", (start_timestamp, end_timestamp, id_start, id_end, limit))
+        else:
+            cur.execute("SELECT * FROM fish_counter WHERE (fish_date || ' ' || fish_time) BETWEEN %s AND %s AND id BETWEEN %s AND %s", (start_timestamp, end_timestamp, id_start, id_end))
         rows = cur.fetchall()
         
         if not wasConnected:
@@ -124,21 +127,21 @@ if __name__ == "__main__":
     sql_manager_obj = SqlManager("localhost", "5432", "fcdb", "fishcens", "fishcens")
     sensor_data = sql_manager_obj.get_sensor_data()
     
-    print("Sensor data is: ")
-    print(sensor_data)
+    # print("Sensor data is: ")
+    # print(sensor_data)
     
-    fish_data = sql_manager_obj.get_fish_data()
+    fish_data = sql_manager_obj.get_fish_data(limit=5)
     
     print("Fish data is: ")
     print(fish_data)
     
-    last_data = sql_manager_obj.get_last_datapoints()
+    # last_data = sql_manager_obj.get_last_datapoints()
     
-    print("Last data is: ")
-    print(last_data)
+    # print("Last data is: ")
+    # print(last_data)
     
-    fish_count = sql_manager_obj.get_fish_count()
+    # fish_count = sql_manager_obj.get_fish_count()
     
-    print("Fish count is: ")
-    print(fish_count)
+    # print("Fish count is: ")
+    # print(fish_count)
     

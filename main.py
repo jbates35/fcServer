@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
+import os
 from apscheduler.schedulers.background import BackgroundScheduler
 import sensorGrapher
 import SqlManager
@@ -74,7 +75,21 @@ def sensors():
 @app.route('/fishdata')
 @app.route('/fishdata.html')
 def fishdata():
-    return render_template('fishdata.html')
+    fish_data = sql_manager_obj.get_fish_data(limit=5)
+
+    fish_with_urls = []
+    for fish in fish_data:
+        file_path = fish[3]  # Assuming fish[3] contains the file path
+        file_name = file_path.split('/')[-2] + '/' + file_path.split('/')[-1]  # Extract the file name from the file path
+        image_url = f"../fishPictures/{file_name}"  # Construct the image URL
+
+        fish_with_urls.append((fish[0], fish[1], fish[2], image_url, fish[4]))  # Update the tuple with the image URL
+
+    return render_template(
+        'fishdata.html',
+        fish_data=fish_with_urls
+    )
+
 
 @app.route('/settings')
 @app.route('/settings.html')
@@ -94,6 +109,10 @@ def perform_background_task():
 
     depth_plot = sensorGrapher.plot_water_level(sensor_data)
     depth_plot.savefig(depth_graph_link)
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(app.static_folder, filename)
 
 # Schedule the background task to run every minute
 scheduler.add_job(perform_background_task, 'interval', minutes=5)
