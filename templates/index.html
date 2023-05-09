@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    {{ super() }}    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div id="innerContentBox">
+        <div class="box" id="box1">
+            <img src="{{ url_for('video_feed') }}" id="videoSrc">
+        </div>
+        <div class="box" id="box2">            
+            <div class="reading" id="timeDiv">
+                <div class="param">Fish counting time-span:</div>
+                <div class="arg">Past {{ datetime_string }}</div>
+            </div>
+
+            <div class="reading" id="fishIncDiv">
+                <div class="param">Fish swimming upstream:</div>
+                <div class="arg">{{ fish_data["inc"] }}</div>
+            </div>
+            <div class="reading" id="fishDecDiv">
+                <div class="param">Fish swimming downstream:</div>
+                <div class="arg">{{ fish_data["dec"] }}</div>
+            </div>
+            <div class="reading" id="netFishDiv">
+                <div class="param">Fish swimming total:</div>
+                <div class="arg">{{ fish_data["net"] }} {{ fish_data["dir"] }}</div>
+            </div>
+
+            <br>
+
+            <div class="reading" id="tempReadingDiv">
+                <div class="param">Current temperature:</div>
+                <div class="arg">{{ sensor_data["temp"] }}</div>
+            </div>
+            <div class="reading" id="depthReadingDiv">
+                <div class="param">Current depth:</div> 
+                <div class="arg">{{ sensor_data["depth"] }}</div>
+            </div>
+        </div>
+        <div class="box" id="box3"><img class="sensorgraph" id="tempgraph_id" src="{{ temp_graph }}"></div>
+        <div class="box" id="box4"><img class="sensorgraph" id="depthgraph_id" src="{{ depth_graph }}"></div> 
+    </div>
+{% endblock %}
