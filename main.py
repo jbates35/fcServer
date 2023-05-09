@@ -1,8 +1,9 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, Response, send_from_directory
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
 import sensorGrapher
 import SqlManager
+from video_stream import gen_feed
 from datetime import datetime, timedelta
 
 app = Flask(__name__, static_url_path='/static')
@@ -68,6 +69,13 @@ def index():
         sensor_data = sensor_dict,
         temp_graph = temp_graph_link,
         depth_graph = depth_graph_link
+        )
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(
+        gen_feed(), 
+        mimetype='multipart/x-mixed-replace; boundary=frame'
         )
 
 @app.route('/sensors')
