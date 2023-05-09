@@ -7,7 +7,9 @@
 
 {% block content %}
     <div id="innerContentBox">
-        <div class="box" id="box1">1a3</div>
+        <div class="box" id="box1">
+            <img src="{{ url_for('video_feed') }}" id="videoSrc">
+        </div>
         <div class="box" id="box2">            
             <div class="reading" id="timeDiv">
                 <div class="param">Fish counting time-span:</div>

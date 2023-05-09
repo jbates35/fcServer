@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Response
 from apscheduler.schedulers.background import BackgroundScheduler
 import sensorGrapher
 import SqlManager
+from video_stream import gen_feed
 from datetime import datetime, timedelta
 
 app = Flask(__name__, static_url_path='/static')
@@ -66,6 +67,13 @@ def index():
         depth_graph = depth_graph_link
         )
 
+@app.route('/video_feed')
+def video_feed():
+    return Response(
+        gen_feed(), 
+        mimetype='multipart/x-mixed-replace; boundary=frame'
+        )
+
 @app.route('/sensors')
 @app.route('/sensors.html')
 def sensors():
@@ -99,4 +107,4 @@ def perform_background_task():
 scheduler.add_job(perform_background_task, 'interval', minutes=5)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
