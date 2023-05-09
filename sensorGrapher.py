@@ -9,7 +9,7 @@ def plot_water_temperature(sensor_data):
     
     for reading in sensor_data:
         #If temperature is -1, it is invalid and we can move to the next reading
-        if reading[3] == -1:
+        if reading[3] <= -1 or reading[3] >= 60:
             continue
         
         #Add temperature which will be y-axis, timestamp which will be x-axis
@@ -37,7 +37,7 @@ def plot_water_level(sensor_data):
     
     for reading in sensor_data:
         #If depth is -1, it is invalid and we can move to the next reading
-        if reading[4] == -1:
+        if reading[4] <= -1:
             continue
         
         #Add depth which will be y-axis, timestamp which will be x-axis

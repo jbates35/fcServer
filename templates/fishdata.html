@@ -1,7 +1,23 @@
 {% extends 'layout.html' %}
 
+{% block head %}
+    {{ super() }}    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fishdata.css') }}" />
+{% endblock %}
+
 {% block content %}
 <div id="innerContentBox">
-        fish data
+        {% for fish in fish_data %}
+        <div class="box">
+                <div class="image">
+                        <img src="{{ fish[3] }}">
+                </div>
+                <div class="info">
+                        Direction: {{ fish[4] }}<br>
+                        Date: {{ fish[1].strftime('%Y-%m-%d') }}<br>
+                        Time: {{ fish[2].strftime('%H:%M:%S') }}<br>
+                </div>
+        </div>  
+        {% endfor %}
 </div>
 {% endblock %}

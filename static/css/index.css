@@ -1,13 +1,3 @@
-body {
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-    font-family: 'Ubuntu-Regular', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--darkgrey1);
-}
-
 div#innerContentBox {
     background-color: white;
     width: 1152px;
@@ -93,19 +83,20 @@ div#innerContentBox {
     width:100%;
     font-size: 1.2em;
     font-family: 'Ubuntu-Regular', sans-serif;
-  }
-  
-  .param {
+}
+
+.param {
     text-align: right;
     width:50%;
     padding:3px;
     font-weight: bold;
-  }
-  
-  .arg {
+}
+
+.arg {
     text-align: left;
     width:50%;
     padding:3px;
+
   }
 
   #videoSrc {

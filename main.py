@@ -1,4 +1,5 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, send_from_directory
+import os
 from apscheduler.schedulers.background import BackgroundScheduler
 import sensorGrapher
 import SqlManager
@@ -10,6 +11,9 @@ scheduler = BackgroundScheduler()
 
 sql_manager_obj = SqlManager.SqlManager("localhost", "5432", "fcdb", "fishcens", "fishcens")
 sql_manager_obj.connect()
+
+depth_graph_link = "static/img/depth.png"
+temp_graph_link = "static/img/temperature.png"
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -82,7 +86,21 @@ def sensors():
 @app.route('/fishdata')
 @app.route('/fishdata.html')
 def fishdata():
-    return render_template('fishdata.html')
+    fish_data = sql_manager_obj.get_fish_data(limit=5)
+
+    fish_with_urls = []
+    for fish in fish_data:
+        file_path = fish[3]  # Assuming fish[3] contains the file path
+        file_name = file_path.split('/')[-2] + '/' + file_path.split('/')[-1]  # Extract the file name from the file path
+        image_url = f"../fishPictures/{file_name}"  # Construct the image URL
+
+        fish_with_urls.append((fish[0], fish[1], fish[2], image_url, fish[4]))  # Update the tuple with the image URL
+
+    return render_template(
+        'fishdata.html',
+        fish_data=fish_with_urls
+    )
+
 
 @app.route('/settings')
 @app.route('/settings.html')
@@ -91,10 +109,7 @@ def settings():
 
 def perform_background_task():
     # Import sensor data from database and plot them
-    # First need filenames
-    depth_graph_link = "static/img/depth.png"
-    temp_graph_link = "static/img/temperature.png"
-
+    # First need filename
     sensor_data = sql_manager_obj.get_sensor_data()
 
     temperature_plot = sensorGrapher.plot_water_temperature(sensor_data)
@@ -103,8 +118,13 @@ def perform_background_task():
     depth_plot = sensorGrapher.plot_water_level(sensor_data)
     depth_plot.savefig(depth_graph_link)
 
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(app.static_folder, filename)
+
 # Schedule the background task to run every minute
 scheduler.add_job(perform_background_task, 'interval', minutes=5)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    perform_background_task()
+    app.run()
