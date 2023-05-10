@@ -126,5 +126,5 @@ def serve_static(filename):
 scheduler.add_job(perform_background_task, 'interval', minutes=5)
 
 if __name__ == "__main__":
-    perform_background_task()
+    #perform_background_task()
     app.run()

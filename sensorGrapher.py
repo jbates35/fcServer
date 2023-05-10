@@ -66,8 +66,8 @@ if __name__=="__main__":
     
     #Plot the data
     temperature_plot = plot_water_temperature(sensor_data)
-    temperature_plot.savefig("img/temperature.png")
+    temperature_plot.savefig("static/img/temperature.png")
     
     depth_plot = plot_water_level(sensor_data)
-    depth_plot.savefig("img/depth.png")
+    depth_plot.savefig("static/img/depth.png")
     
