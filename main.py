@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response, send_from_directory
+from flask import Flask, render_template, Response, send_from_directory, Request
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
 import sensorGrapher
