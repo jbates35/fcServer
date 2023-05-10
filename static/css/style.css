@@ -15,7 +15,7 @@
 
     --scrollbar-bg: #222;
     --scrollbar-thumb: #d2dfbe;
-    --scrollbar-thumb-hover: #d2dfbe;
+    --scrollbar-thumb-hover: #0d0e0b;
     --scrollbar-fg: rgb(170, 180, 56);
 
     --titlebg: #42442f;
@@ -206,7 +206,7 @@ div#outerContentBox {
     top: 110px;
     left: 0px;
     width: 100%;
-    height: calc(100% - 150px);
+    height: calc(100% - 110px);
     display: flex;
     justify-content: center;
     align-items: center;
