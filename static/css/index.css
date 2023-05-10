@@ -51,7 +51,7 @@
 }
 
 #fishInfoBox {
-    background-color: #CDA;
+    background-color: #DEC;
     color: #020;
     grid-area: fishInfo;
     flex: 1 1 30%; /* Allow flex item to shrink and grow, and take 50% width */
@@ -72,7 +72,7 @@
 }
 
 #sensorDataBox {
-    background-color: #CDA;
+    background-color: #DEC;
     color: #020;
     width: 38%;
     display: flex;
