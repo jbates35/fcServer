@@ -1,74 +1,88 @@
-div#innerContentBox {
-    background-color: white;
-    width: 1152px;
-    height: 90%;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    
+:root {
+    --darkgreen1: #2c2d26;
+    --darkgreen2: #646a4e;
 }
 
-@media (max-width: 1280px) {
-    div#innerContentBox {
-        width: 90%;
-    }
+#innerContentBox {
+    width: 1152px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
 }
 
 @media (max-width: 700px) {
-    div#innerContentBox {
-        flex-direction: column;
+    #innerContentBox {
+        grid-template-areas:
+        "video"
+        "fishInfo"
+        "sensorData"
+        "sensorGraph"
+    }
+    #videoBox {
+        width: 100%;
+        height: 480px;
+    }
+    #fishInfoBox {
+        width: 100%;
+    }
+    #sensorDataBox {
+        width: 100%;
+    }
+    #sensorGraphBox {
+        width: 100%;
     }
 }
 
 .box {
     /* border-top-left-radius: 5%; */
     /* border-bottom-right-radius: 5%; */
-    border: #DDDDDD;
-    border-style: solid;
-    border-width: 1px;
     background-color: white;
-    padding:15px;
-    width: 45%;
-    height: 45%;
+    border : 1px solid #cdddbf;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
 }
 
-/* @media (max-width: 1280px) {
-    .box {
-        height: calc()
-    }
-} */
-
-@media (max-width: 700px) { 
-    .box {
-        width: 90%;
-    }
+#videoBox {
+    grid-area: video;
+    
+    flex: 1 1 700px; /* Allow flex item to shrink and grow, and take 50% width */
+    width: 640px;
+    height: 480px;
 }
 
-#box1 {
-    order: 1;
-}
-#box2 {
-    order: 2;
-
+#fishInfoBox {
+    background-color: #DEC;
+    color: #020;
+    grid-area: fishInfo;
+    flex: 1 1 30%; /* Allow flex item to shrink and grow, and take 50% width */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 480px;
+}
+
+#dividerBox {
+    grid-area: divider;
+    height: 3px;
+    width: 100%;
+    background-image: linear-gradient(to left, var(--darkgreen1), var(--darkgreen2));
 
 }
-#box3 {
-    order: 3;
+
+#sensorDataBox {
+    background-color: #DEC;
+    color: #020;
+    width: 38%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-#box4 {
-    order: 4;
+
+#sensorGraphBox {
+    flex: 1 1 700px; /* Allow flex item to shrink and grow, and take 50% width */
 }
 
 .sensorgraph {
@@ -81,7 +95,7 @@ div#innerContentBox {
     display: flex;
     justify-content: space-between;
     width:100%;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-family: 'Ubuntu-Regular', sans-serif;
 }
 
@@ -104,3 +118,10 @@ div#innerContentBox {
     height: 100%;
     object-fit: contain;
   }
+
+#sensorgraph_id
+{
+    width: 700px;
+    height: 100%;
+    object-fit: contain;
+}

@@ -13,11 +13,22 @@
 
     --mediumgrey1: #999;
 
-
     --scrollbar-bg: #222;
-    --scrollbar-thumb: #C85;
-    --scrollbar-thumb-hover: #FB7;
-    --scrollbar-fg: rgb(170, 125, 56);
+    --scrollbar-thumb: #d2dfbe;
+    --scrollbar-thumb-hover: #0d0e0b;
+    --scrollbar-fg: rgb(170, 180, 56);
+
+    --titlebg: #42442f;
+    --mainbg: #f7f4ef;
+    --titleline: #2c2d26;
+    --text: #42442f;
+    --titletext: #fbeec8;
+    --links: white;
+    --linkshover: #d2dfbe;
+
+    --darkgreen1: #2c2d26;
+    --darkgreen2: #646a4e;
+    
 
 }
 
@@ -70,16 +81,22 @@
             url('fonts/Ubuntu-Regular.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Righteous';
+    src:    url('fonts/Righteous-Regular.woff2') format('woff2'),
+            url('fonts/Righteous-Regular.woff') format('woff');
+}
+
 body {
     font-family: 'Ubuntu-Regular', sans-serif;
     font-size: 16px;
     line-height: 1.5;
     color: var(--darkgrey1);
-    background-color: var(white);
+    background-color: var(--mainbg);
 }
 
 a:link, a:visited {
-    color: var(--darkblue1);
+    color: var(--darkgrey1);
     text-decoration: none;
 }
 
@@ -88,7 +105,7 @@ a:hover {
 }
 
 a:active {
-    color: var(--darkblue2);
+    color: var(--darkgrey3);
     text-decoration: underline;
 }
 
@@ -100,17 +117,18 @@ div#banner {
     left: 0px;
     height: 100px;
     width: 100%;
-    background-image: url('../img/banner/fishBanner_1.png');
     background-repeat: repeat-x;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content:left;
+    align-items:center;
+    background-color: var(--titlebg);
 }
 
 h1#titleH1 {
+    padding-left: 40px;
     font-size: 6em;
-    font-family: 'Bellota-Bold', sans-serif;
-    color: var(--darkblue1);
+    font-family: 'Righteous', 'Bellota-Bold', sans-serif;
+    color: var(--titletext);
     text-shadow: 2px 2px 2px var(black);
 }
 
@@ -120,7 +138,7 @@ div.bottomBorder {
 }
 
 div#bannerBottomBorder {
-    background-image: linear-gradient(to right, var(--darkgrey1), var(--darkgrey2));
+    background-image: linear-gradient(to right, var(--darkgreen1), var(--darkgreen2));
     position: absolute;
     top:100px;
     left: 0px;
@@ -129,33 +147,34 @@ div#bannerBottomBorder {
 /********** Navigation stuff **********/
 div#navbar {
     position: absolute;
-    top: 105px;
+    top: 10px;
     width: 100%;
+    align-items: right;
+    text-align: right;
     height: 40px;
     left:0px;
-    background-color: var(--lightgrey1);
-    color: var(--darkgrey1);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    font-size: 1.5em;
+    color: var(--links);
 }
 
 .linkContainer {
     padding: 5px;
+    padding-right: 10px;
     border-radius: 5px;
 }
 
 .linkContainer a {
     text-decoration: none;
-    font-size: 1.5em;
-    color: var(--darkgrey1);
+    color: var(--links);
     font-weight: bold;
     display: inline-block;
 }
 
 .linkContainer a:hover {
     text-decoration: underline;
-    color: var(--darkgrey3);
+    color: var(--linkshover);
     font-weight: bold;
     display: inline-block;
 }
@@ -181,13 +200,13 @@ div#navbarBottomBorder {
 }
 
 /********** Main content stuff **********/
+
 div#outerContentBox {
-    background-color: white;
     position: absolute;
-    top: 150px;
+    top: 110px;
     left: 0px;
     width: 100%;
-    height: calc(100% - 150px);
+    height: calc(100% - 110px);
     display: flex;
     justify-content: center;
     align-items: center;
